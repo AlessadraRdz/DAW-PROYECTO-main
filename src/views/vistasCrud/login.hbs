@@ -1,0 +1,26 @@
+  <div class="container mx-auto px-4 py-10">
+    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
+      <h2 class="text-xl font-bold mb-4">Iniciar Sesión</h2>
+      <form action="/confirma" method="POST"> 
+        <div class="mb-4">
+          <label for="fname" class="block text-gray-700 font-bold mb-2">Nombre:</label>
+          <input type="text" id="fname" name="fname" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nombre">
+        </div>
+        <div class="mb-4">
+          <label for="password" class="block text-gray-700 font-bold mb-2">Password:</label>
+          <input type="password" id="password" name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Password">
+        </div>
+        <div class="mb-4">
+          <label for="rol" class="block text-gray-700 font-bold mb-2">Rol:</label>
+          <select id="rol" name="rol" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <option value="1">Administrador</option>
+            <option value="2">Usuario</option>
+          </select>
+        </div>
+        <div class="flex justify-between items-center">
+          <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Iniciar Sesión</button>
+        </div>
+      </form>
+    </div>
+    <br>
+  </div>
