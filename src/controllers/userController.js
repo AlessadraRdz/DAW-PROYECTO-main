@@ -29,16 +29,54 @@ function obtenerRol(req, res, next) {
     });
 }
   
-
 //CARRITO
+
+
+// Genera un id para la orden
+function generateRandom6DigitInt() {
+    return Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
+}
+
 function carrito(req, res) {
-    const datos = req.body;
+    const data = req.body;
+    const orderId = generateRandom6DigitInt();
+
     req.getConnection((err, conn) => {
-        conn.query('INSERT INTO carritocompra SET ?', datos, (err, rows) => {
-            res.redirect('/listar_libro');
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Error connecting to database");
+        }
+        
+        const insertQueries = [];
+        
+        data.forEach(item => {
+            const query = 'INSERT INTO carritocompra (qty, itemId, orderId) VALUES (?, ?, ?)';
+            const values = [item.qty, item.itemId, orderId];
+            
+            insertQueries.push(new Promise((resolve, reject) => {
+                conn.query(query, values, (err, result) => {
+                    if (err) {
+                        console.error(err);
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            }));
         });
+        
+        Promise.all(insertQueries)
+            .then(results => {
+                console.log("Insert operations completed successfully");
+                res.redirect('/listar_libro');
+            })
+            .catch(error => {
+                console.error("Error executing insert operations:", error);
+                res.status(500).send("Error executing insert operations");
+            });
     });
 }
+
 
 
 function carritoView(req, res) {
