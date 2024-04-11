@@ -1,0 +1,41 @@
+<div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+  <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mt-10">
+
+    <table class="table-fixed w-full">
+      <thead>
+        <tr class="bg-green-500 text-white">
+          <th class="w-2 py-4 ...">ID</th>
+          <th class="w-6 py-4 ...">Nombre</th>
+          <th class="w-6 py-4 ...">Apellido</th>
+          <th class="w-6 py-4 ...">Password</th>
+          <th class="w-6 py-4 ...">Rol</th>
+          <th class="w-5 py-4 ...">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each user}}
+        <tr>
+          <td class="p-1 text-center">{{id}}</td>
+          <td class="text-center">{{fname}}</td>
+          <td class="text-center">{{lname}}</td>
+          <td class="text-center">{{password}}</td>
+          <td class="text-center">{{rol}}</td>
+          <td class="flex">
+            <form action="/eliminar" method="POST" class="mx-2">
+              <input type="hidden" value="{{id}}" name="id">
+              <button class="bg-red-500 text-white px-3 py-1 " type="submit">
+                <i class="fas fa-trash"></i>
+              </button>
+            </form>
+            <a href="/editar/{{id}}" class="bg-green-500 text-white px-3 py-1 rounded-sm">
+              <i class="fas fa-pen"></i>
+            </a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <br>
+    <a href="/agregar" class="font-semibold  hover:text-red-700 py-3 px-4 rounded-md">Agregar Usuario</a>
+  </div>
+</div>

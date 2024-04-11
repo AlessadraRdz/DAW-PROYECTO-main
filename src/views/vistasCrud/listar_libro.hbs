@@ -1,0 +1,66 @@
+<div class="container mx-auto px-4 py-10 bg-gray-200">  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {{#each libro}}
+      <div id="book-{{ id }}" class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
+        <div class="flex justify-center mb-4">
+          <img src="{{url}}" alt="{{title}}" class="w-48 h-48 object-cover mx-auto"> </div>
+        <h2 class="text-xl font-bold mb-2">{{title}}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="font-bold text-gray-700">Autor:</div>
+          <div>{{author}}</div>
+          <div class="font-bold text-gray-700">Descripción:</div>
+          <div>{{description}}</div>
+          <div class="font-bold text-gray-700">Precio:</div>
+          <div class="item-precio text-gray-700">{{ price }}</div>
+        </div>
+        <div class="flex justify-between items-center mt-4">  
+          <div class="flex">
+            <form action="/eliminar_libro" method="POST" class="mx-2">
+              <input type="hidden" value="{{id}}" name="id">
+              <button class="bg-red-500 text-white px-3 py-1 " type="submit">
+                <i class="fas fa-trash"></i>
+              </button>
+            </form>
+            <a href="/editar_libro/{{id}}" class="bg-green-500 text-white px-3 py-1 rounded-sm">
+              <i class="fas fa-pen"></i>
+            </a>
+            <select class="item-cantidad border border-gray-200 rounded-md bg-gray-200 w-20 text-lg placeholder-gray-500 px-2 py-1 focus:bg-white">
+             {{!-- <option value="">Cantidad</option> --}}
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+            </select>
+            <button onclick="agregarItem('{{id}}')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-2 rounded">Agregar al carrito</button>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+  <br>
+  <a href="/agregar_libro" class="font-semibold hover:text-red-700 py-3 px-4 rounded-md">Agregar Libro</a>
+</div>
+
+
+<script>
+  if(!localStorage.getItem('cartItems')) {
+    localStorage.setItem("cartItems", "[]");
+  }
+
+  function agregarItem(id) {
+    let cartItems = [];
+    if(localStorage.getItem("cartItems")) {
+      cartItems = JSON.parse(localStorage.getItem("cartItems"));
+    }
+    const itemId = id;
+    console.log(`book-${id} .item-cantidad`);
+    const qty = document.querySelector(`#book-${id} .item-cantidad`).value;
+    const cartItem = {qty, itemId}
+    cartItems.push(cartItem);
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }
+</script>

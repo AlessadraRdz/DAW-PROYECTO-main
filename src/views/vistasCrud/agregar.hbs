@@ -1,0 +1,34 @@
+<div class="container mx-auto my-12 p-8 bg-white border border-gray-200 rounded-lg shadow-lg text-gray-800">
+
+  <h1 class="text-center text-3xl font-bold mb-4">Registrarse</h1>
+
+  <form action="/agregar_usuario" method="POST" class="mb-4">
+
+    <div class="mb-4">
+      <label for="fname" class="block text-gray-700 font-bold mb-2">Nombre:</label>
+      <input type="text" id="fname" name="fname" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nombre">
+    </div>
+
+    <div class="mb-4">
+      <label for="lname" class="block text-gray-700 font-bold mb-2">Apellido:</label>
+      <input type="text" id="lname" name="lname" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Apellido">
+    </div>
+
+    <div class="mb-4">
+      <label for="password" class="block text-gray-700 font-bold mb-2">Password:</label>
+      <input type="password" id="password" name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Password">
+    </div>
+
+    <div class="mb-4">
+      <label for="rol" class="block text-gray-700 font-bold mb-2">Rol:</label>
+      <select id="rol" name="rol" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        <option value="1">Administrador</option>
+        <option value="2">Usuario</option>
+      </select>
+    </div>
+
+    <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Enviar</button>
+
+  </form>
+
+</div>
