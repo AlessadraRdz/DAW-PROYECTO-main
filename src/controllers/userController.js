@@ -16,17 +16,30 @@ function confirma(req, res) {
     })
 });
 }
+function obtenerRol(req, res, next) {
+    const { fname, password, rol } = req.body;
+    req.getConnection((err, conn) => {
+        
+        const sql = "SELECT * FROM users WHERE fname = ? AND password = ? AND rol = ?";
+        conn.query(sql, [fname, password, rol], (err, results) => {  
+            const user = results[0];
+            req.rol = user.rol; // Almacenamos el rol en la solicitud
+            next(); // Pasamos al siguiente middleware
+        });
+    });
+}
   
 
 //CARRITO
 function carrito(req, res) {
     const datos = req.body;
     req.getConnection((err, conn) => {
-        conn.query('INSERT INTO carrito SET ?', [datos], (err, rows) => {
-            res.redirect('/carrito');
-        })
+        conn.query('INSERT INTO carritocompra SET ?', datos, (err, rows) => {
+            res.redirect('/listar_libro');
+        });
     });
 }
+
 
 function carritoView(req, res) {
     res.render('vistasCrud/carrito')
@@ -118,7 +131,7 @@ function agregar_libro(req, res) {
 function guardar_libro(req, res) {
     const datos = req.body;
     req.getConnection((err, conn) => {
-        conn.query('INSERT INTO Libros SET ?', [datos], (err, rows) => {
+        conn.query('INSERT INTO libros SET ?', [datos], (err, rows) => {
             res.redirect('/listar_libro');
         })
     });
@@ -161,6 +174,7 @@ module.exports = {
     //LOGEO
     login : login,
     confirma : confirma,
+    obtenerRol : obtenerRol,
     //CARRITO
     carrito : carrito,
     carritoView: carritoView,

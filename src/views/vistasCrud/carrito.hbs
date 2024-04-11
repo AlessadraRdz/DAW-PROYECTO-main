@@ -1,37 +1,32 @@
 <div class="container mx-auto px-4 py-10">
   <h2 class="text-xl font-bold mb-4">Carrito de Compra</h2>
-  <table class="table-auto w-full border-collapse ">
+  <table class="table-auto w-full border-collapse">
     <thead>
       <tr>
         <th class="px-4 py-2 border border-gray-300 text-left">Imagen</th>
         <th class="px-4 py-2 border border-gray-300 text-left">Título</th>
         <th class="px-4 py-2 border border-gray-300 text-center">Cantidad</th>
         <th class="px-4 py-2 border border-gray-300 text-right">Precio</th>
+        <th class="px-4 py-2 border border-gray-300 text-right">Total</th>
         <th class="px-4 py-2 border border-gray-300 text-center">Acciones</th>
       </tr>
     </thead>
-    <tbody id="lista-productos">
-    </tbody>
+    <tbody id="lista-productos"></tbody>
   </table>
   <div class="flex justify-between mt-4">
-    <p class="text-gray-700">Total: <span id="total-carrito">0</span></p>
     <div class="flex">
-      <a href="/listar_libro" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded mr-2">Seguir
-        comprando</a>
-      <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Comprar ahora</button>
+      <a href="/listar_libro" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded mr-2">Seguir comprando</a>
+      <button id="comprar-btn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Comprar ahora</button>
     </div>
   </div>
 </div>
 
-{{!--
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-
 <script>
-
   function renderCart() {
-    if(!localStorage.getItem("cartItems")) {
+    if (!localStorage.getItem("cartItems")) {
       return;
     }
+
     const cartItems = JSON.parse(localStorage.getItem("cartItems"));
     const libros = fetch('/listar_libros')
       .then(response => {
@@ -41,20 +36,22 @@
         return response.json();
       })
       .then(data => {
-        console.log('test')
-        console.log(data);
         let rows = '';
+        let total = 0;
         let books = data.filter(book => book != undefined);
         cartItems.forEach((cartItem, indx) => {
-          if(cartItem.itemId == books[indx].id ) {
+          if (cartItem.itemId == books[indx].id) {
+            const subtotal = cartItem.qty * (books[indx].price ? books[indx].price : 9.99);
+            total += subtotal;
             rows += `<tr class="border-b border-gray-300 py-2">
               <td><img class='mx-auto w-20 h-20 my-2' src='${books[indx].url}'/></td>
               <td class="text-center">${books[indx].title}</td>
               <td class="text-center">${cartItem.qty}</td>
               <td class="text-center">${books[indx].price ? books[indx].price : '$9.99'}</td>
-            </tr>`
+              <td class="text-center">${subtotal.toFixed(2)}</td>
+            </tr>`;
           }
-        })
+        });
         document.getElementById('lista-productos').innerHTML = rows;
       })
       .catch(error => {
@@ -62,6 +59,32 @@
       });
   }
 
-  renderCart()
+  renderCart();
 
+  document.getElementById('comprar-btn').addEventListener('click', () => {
+    const cartItems = JSON.parse(localStorage.getItem("cartItems"));
+    if (cartItems && cartItems.length > 0) {
+      fetch('/carrito', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(cartItems)
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        localStorage.removeItem('cartItems');
+        alert('¡Compra exitosa! Se ha enviado tu pedido.');
+        window.location.href = '/listar_libro';
+      })
+      .catch(error => {
+        console.error('There was a problem with your fetch operation:', error);
+        alert('Error al procesar la compra. Por favor, inténtalo de nuevo más tarde.');
+      });
+    } else {
+      alert('No hay elementos en el carrito para comprar.');
+    }
+  });
 </script>

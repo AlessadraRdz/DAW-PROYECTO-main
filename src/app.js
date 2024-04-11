@@ -32,3 +32,7 @@ app.listen(app.get('port'), () => {
 app.use('/', userRoutes);
 
 app.get('/', (req, res) => { res.render('home'); });
+
+
+
+

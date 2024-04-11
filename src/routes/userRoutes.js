@@ -7,6 +7,7 @@ const router = express.Router();
 //LOGEO
 router.get('/login', userController.login);
 router.post('/confirma', userController.confirma);
+router.get('/confirma', userController.confirma);
 //CARRITO
 router.post('/carrito', userController.carrito);
 router.get('/carrito', userController.carritoView);

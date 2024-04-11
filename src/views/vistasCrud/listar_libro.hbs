@@ -1,8 +1,9 @@
-<div class="container mx-auto px-4 py-10 bg-gray-200">  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="container mx-auto px-4 py-10 bg-blue-700">  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     {{#each libro}}
       <div id="book-{{ id }}" class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
         <div class="flex justify-center mb-4">
           <img src="{{url}}" alt="{{title}}" class="w-48 h-48 object-cover mx-auto"> </div>
+          <div class="font-bold text-gray-700">Titulo</div>
         <h2 class="text-xl font-bold mb-2">{{title}}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="font-bold text-gray-700">Autor:</div>
@@ -11,6 +12,8 @@
           <div>{{description}}</div>
           <div class="font-bold text-gray-700">Precio:</div>
           <div class="item-precio text-gray-700">{{ price }}</div>
+          <div class="font-bold text-gray-700">Categoría:</div>
+          <div class="item-precio text-gray-700">{{ category }}</div>
         </div>
         <div class="flex justify-between items-center mt-4">  
           <div class="flex">
@@ -24,7 +27,7 @@
               <i class="fas fa-pen"></i>
             </a>
             <select class="item-cantidad border border-gray-200 rounded-md bg-gray-200 w-20 text-lg placeholder-gray-500 px-2 py-1 focus:bg-white">
-             {{!-- <option value="">Cantidad</option> --}}
+             <option value="">Cantidad</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -35,15 +38,14 @@
               <option value="8">8</option>
               <option value="9">9</option>
             </select>
-            <button onclick="agregarItem('{{id}}')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-2 rounded">Agregar al carrito</button>
+            <button onclick="agregarItem('{{id}}')" class="bg-yellow-600 hover:bg-green-600 text-white font-bold py-1 px-2 rounded">Agregar al carrito</button>
           </div>
         </div>
       </div>
     {{/each}}
   </div>
   <br>
-  <a href="/agregar_libro" class="font-semibold hover:text-red-700 py-3 px-4 rounded-md">Agregar Libro</a>
-</div>
+ </div>
 
 
 <script>
