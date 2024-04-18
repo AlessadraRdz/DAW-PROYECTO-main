@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal editorial</title>
+  <!-- Tailwind CSS Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.1/tailwind.min.css">
+  <!-- Fontawesome Link -->
+  <link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="flex py-5 bg-black text-white px-24">
+    <div class="px-12 mr-auto">
+      <a href="/" class="text-2xl font-bold nav-link font-semibold hover:bg-green-700 py-3 px-4 rounded-md">Portal editorial</a>
+    </div>
+    <ul class="px-8 flex justify-end pt-1">
+      <li class="nav-item px-4" id="listar_usuarios">  
+        <a href="/listar" class="nav-link font-semibold border-2 border-white hover:bg-green-700 py-4 px-4 rounded-md">Usuarios</a>
+      </li>
+      <li class="nav-item px-4" id="listar_libro">  
+        <a href="/listar_libro" class="nav-link font-semibold border-2 border-white hover:bg-green-700 py-4 px-4 rounded-md">Tienda</a>
+      </li>
+      <li class="nav-item px-4" id="agregar_libro">  
+        <a href="/agregar_libro" class="nav-link font-semibold border-2 border-white hover:text-green-700 hover:bg-white py-4 px-4 rounded-md">Agregar Libro</a>
+      </li>
+      <li class="nav-item px-4">
+        <a href="/"  class="nav-link font-semibold border-2 border-white hover:text-red-700 hover:bg-white py-4 px-4 rounded-md">Cerrar Sesión</a>
+      </li>
+      <li class="nav-item">
+        <a href="/carrito" class="nav-link">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="badge badge-pill badge-primary" id="carrito-cantidad"></span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  {{{body}}}
+  <script>
+    function actualizarMenu(userRole) {
+      const adminOptions = document.getElementById('listar_usuarios');
+      const agregarLibro = document.getElementById('agregar_libro');
+
+      // Esconder todas las opciones administrativas inicialmente
+      if (adminOptions) adminOptions.style.display = 'none';
+      if (agregarLibro) agregarLibro.style.display = 'none';
+
+      // Mostrar opciones basadas en el rol
+      if (userRole === 'admin') { 
+        if (adminOptions) adminOptions.style.display = 'block'; // Mostrar opciones de usuarios
+        if (agregarLibro) agregarLibro.style.display = 'block'; // Mostrar opción de agregar libro
+      } else { // Si el rol no es admin, ocultar las opciones
+        if (adminOptions) adminOptions.style.display = 'none'; // Ocultar opciones de usuarios
+        if (agregarLibro) agregarLibro.style.display = 'none'; // Ocultar opción de agregar libro
+      }
+    }
+
+    // Llama a la función actualizarMenu con el valor de userRole después de que la página se haya cargado
+    window.onload = function() {
+      // Obtener el valor del rol del formulario
+      const userRole = '{userRole}';
+      actualizarMenu(userRole);
+    };
+  </script>
+</body>
+
+</html>
