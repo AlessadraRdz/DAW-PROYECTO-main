@@ -21,11 +21,11 @@
           <div class="flex">
             <form action="/eliminar_libro" method="POST" class="mx-2">
               <input type="hidden" value="{{id}}" name="id">
-              <button class="bg-red-500 text-white px-3 py-1 " type="submit">
+              <button class="hide-for-user bg-red-500 text-white px-3 py-1 " type="submit">
                 <i class="fas fa-trash"></i>
               </button>
             </form>
-            <a href="/editar_libro/{{id}}" class="bg-green-500 text-white px-3 py-1 rounded-sm">
+            <a href="/editar_libro/{{id}}" class="bg-green-500 text-white px-3 py-1 rounded-sm hide-for-user">
               <i class="fas fa-pen"></i>
             </a>
             <select class="item-cantidad border border-gray-200 rounded-md bg-gray-200 w-20 text-lg placeholder-gray-500 px-2 py-1 focus:bg-white">

@@ -9,20 +9,31 @@ function login(req, res) {
 function confirma(req, res) {
     const { fname, password, rol } = req.body;
     req.getConnection((err, conn) => {
-      const sql = "SELECT * FROM users WHERE fname = ? AND password = ? AND rol = ?";
-      conn.query(sql, [fname, password, rol], (err, results) => {      
+      const sql = "SELECT * FROM users WHERE username = ? AND password = ? AND rol = ?";
+      conn.query(sql, [fname, password, rol], (err, results) => {    
+        console.log(results)  
         const user = results[0];
         let userRole = "";
         if (user.rol === 1) {
           userRole = "admin";
+          // Set the cookie if user role is admin
+          res.cookie('admin', true);
         } else if (user.rol === 2) {
           userRole = "usuario";
+          res.cookie('admin', false);
         }
         console.log(`Usuario ${fname} con rol ${userRole} se ha logeado`);
         res.redirect(`/listar_libro?rol=${userRole}`);
       });
     });
-  }
+}
+
+function logout(req, res) {
+  // Clear the 'admin' cookie
+  res.clearCookie('admin');
+  res.redirect('/'); // Redirect to the login page or any other appropriate page
+}
+  
   
 //CARRITO
 
@@ -228,6 +239,7 @@ module.exports = {
     eliminar: eliminar,
     editar: editar,
     actualizar: actualizar,
+    logout: logout,
     //LIBROS
     listar_libro: listar_libro,
     listar_libros: listar_libros,

@@ -25,6 +25,7 @@ router.post('/agregar_libro', userController.guardar_libro);
 router.post('/eliminar_libro', userController.eliminar_libro);
 router.get('/editar_libro/:id', userController.editar_libro);
 router.post('/editar_libro/:id', userController.actualizar_libro);
+router.get('/logout', userController.logout);
 
 
 module.exports = router;
