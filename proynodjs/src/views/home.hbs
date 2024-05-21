@@ -2,33 +2,25 @@
   <h3 class="text-center text-2xl text-gray-800 py-16">Bienvenido a "Portal editorial"
   <br>Inicia sesion o registrate
 </h3>
-    <div class="container mx-auto px-4 py-10">
-    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
-      <h2 class="text-xl font-bold mb-4">Iniciar Sesión</h2>
-      <form action="/confirma" method="POST"> 
-        <div class="mb-4">
-          <label for="fname" class="block text-gray-700 font-bold mb-2">Nombre:</label>
-          <input type="text" id="fname" name="fname" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nombre">
+    <div class="container mx-auto px-4 py-10 bg-pink-300">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {{#each libro}}
+      <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
+        <div class="flex justify-center mb-4">
+          <img src="{{url}}" alt="{{title}}" class="w-48 h-48 object-cover mx-auto"> 
         </div>
-        <div class="mb-4">
-          <label for="password" class="block text-gray-700 font-bold mb-2">Password:</label>
-          <input type="password" id="password" name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Password">
+        <div class="font-bold text-gray-700">Título:</div>
+        <h2 class="text-xl font-bold mb-2">{{title}}</h2>
+        <div class="font-bold text-gray-700">Descripción:</div>
+        <p>{{description}}</p>
+        <div class="mt-4">
         </div>
-        <div class="mb-4">
-          <label for="rol" class="block text-gray-700 font-bold mb-2">Rol:</label>
-          <select id="rol" name="rol" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            <option value="1">Administrador</option>
-            <option value="2">Usuario</option>
-          </select>
-        </div>
-        <div class="flex justify-between items-center">
-          <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Iniciar Sesión</button>
-        </div>
-      </form>
+      </div>
+    {{/each}}
     </div>
-    <br>
-  </div>
-  <a href="/agregar" class="font-semibold bg-purple-800 text-xl text-white hover:bg-green-700 
-  px-8 py-4 text-center rounded-md mx-auto">Registrarse</a>
+  <br>
+</div>
+  <a href="/listar_libro" class="font-semibold bg-purple-800 text-xl text-white hover:bg-green-700 
+  px-8 py-4 text-center rounded-md mx-auto">Comprar</a>
 
 </div>

@@ -9,7 +9,7 @@ function login(req, res) {
 function confirma(req, res) {
     const { fname, password, rol } = req.body;
     req.getConnection((err, conn) => {
-      const sql = "SELECT * FROM users WHERE username = ? AND password = ? AND rol = ?";
+      const sql = "SELECT * FROM users WHERE fname = ? AND password = ? AND rol = ?";
       conn.query(sql, [fname, password, rol], (err, results) => {    
         console.log(results)  
         const user = results[0];
@@ -168,6 +168,17 @@ function listar_libro(req, res) {
     });
 }
 
+function carrusel(req, res) {
+    req.getConnection((err, conn) => {
+        conn.query('SELECT url, description FROM libros', (err, libro) => {
+            if (err) {
+                res.json(err);
+            }
+            res.render('home', { libro });
+        })
+    });
+}
+
 function listar_libros(req, res) {
     req.getConnection((err, conn) => {
         conn.query('SELECT * FROM libros', (err, libros) => {
@@ -248,4 +259,5 @@ module.exports = {
     eliminar_libro: eliminar_libro,
     editar_libro: editar_libro,
     actualizar_libro: actualizar_libro,
+    carrusel : carrusel
 }
